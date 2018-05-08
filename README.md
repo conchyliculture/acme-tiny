@@ -1,7 +1,7 @@
 # acme-tiny-dns
 
 This project is a fork of [acme-tiny](https://github.com/diafygi/acme-tiny).
-Thanks a log to [diafygi](https://github.com/diafygi) to let us escape from
+Thanks a lot to [diafygi](https://github.com/diafygi) to let us escape from
 all the other ACME client craziness.
 
 The rest of this README is only going to be about stuff specific to this code.
