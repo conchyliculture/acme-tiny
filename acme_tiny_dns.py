@@ -186,11 +186,17 @@ def main(argv=None):
     parser.add_argument("--ca", default=DEFAULT_CA, help="DEPRECATED! USE --directory-url INSTEAD!")
     parser.add_argument("--contact", metavar="CONTACT", default=None, nargs="*", help="Contact details (e.g. mailto:aaa@bbb.com) for your account-key")
     parser.add_argument("--hook", required=True, help="hook script called to update the domain's zone. It will be called twice: \n\t hook_script update example.org txt_record\n\thook_script cleanup example.org")
-
+    parser.add_argument("--output", default=sys.stdout, help="path for your Let's Encrypt certificate (default to stdout)")
+    
     args = parser.parse_args(argv)
     LOGGER.setLevel(args.quiet or LOGGER.level)
     signed_crt = get_crt(args.account_key, args.csr, args.domain, args.hook, log=LOGGER, CA=args.ca, disable_check=args.disable_check, directory_url=args.directory_url, contact=args.contact)
-    sys.stdout.write(signed_crt)
+    if args.output == sys.stdout:
+        sys.stdout.write(signed_crt)
+    else:
+        with open(args.output, 'w') as f:
+            f.write(signed_crt)
+
 
 if __name__ == "__main__": # pragma: no cover
     main(sys.argv[1:])
